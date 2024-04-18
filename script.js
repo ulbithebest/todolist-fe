@@ -1,5 +1,34 @@
+document.addEventListener('DOMContentLoaded', function () {
+	// Cek apakah pengguna sudah login
+	checkLogin();
+
+	// Fungsi untuk mengambil data
+	FungsiGet();
+});
+
+function checkLogin() {
+	const token = getCookie('login');
+	if (!token) {
+		// Jika tidak ada token, arahkan ke halaman login
+		window.location.href = 'login.html';
+	}
+}
+
 function FungsiGet() {
-    fetch('http://127.0.0.1:3000/tasks')
+	// Ambil token dari cookie
+	const token = getCookie();
+
+	// Pastikan token ada sebelum melakukan permintaan
+	if (!token) {
+		console.error('Token not found. User may not be authenticated.');
+		return;
+	}
+
+	fetch('http://127.0.0.1:3000/tasks', {
+		headers: {
+			'login': token
+		}
+	})
         .then(response => response.json())
         .then(data => {
             const todoList = document.getElementById('todoList');
@@ -97,3 +126,31 @@ function updateTask(id, newData) {
     .catch(error => console.error('Error updating data:', error));
 }
 FungsiGet();
+
+function getCookie() {
+	const name = 'login'; // Nama cookie
+	const cookies = document.cookie.split(';');
+	for (let cookie of cookies) {
+		const [cookieName, cookieValue] = cookie.split('=');
+		if (cookieName.trim() === name) {
+			return cookieValue.trim(); // Menghilangkan spasi di awal dan akhir
+		}
+	}
+	return null;
+}
+
+function logout() {
+	// Hapus cookie yang berisi token
+	document.cookie = 'login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Menghapus cookie dengan nama 'login'
+
+	// Redirect ke halaman login
+	window.location.href = 'login.html';
+}
+
+// Mengambil button dengan id "logoutButton" setelah dokumen selesai dimuat
+document.addEventListener("DOMContentLoaded", function () {
+	var logoutButton = document.getElementById("logoutButton");
+
+	// Menambahkan event listener untuk logout saat tombol ditekan
+	logoutButton.addEventListener("click", logout);
+});

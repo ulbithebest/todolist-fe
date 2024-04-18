@@ -1,195 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <script src="script.js" type="module"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do App</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet" />
     <style>
-        body {
-            background: linear-gradient(135deg, #f0d9ff 0%, #e2dffd 100%);
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 800px; 
-            margin-left: auto;
-            margin-right: auto;
-        }
-        h1 {
-            margin-top: 0;
-            text-align: center;
-            color: #512b58;
-            font-size: 32px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        label {
-            font-weight: bold;
-            color: #512b58;
-        }
-        input[type="text"], textarea, input[type="date"] {
-            width: 100%;
-            padding: 12px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-        }
-        input[type="submit"] {
-            padding: 12px;
-            cursor: pointer;
-            background: linear-gradient(135deg, #512b58 0%, #6a479c 100%);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background-color 0.3s ease;
-        }
-        input[type="submit"]:hover {
-            background: linear-gradient(135deg, #6a479c 0%, #512b58 100%);
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-            color: #512b58;
-            font-size: 16px;
-        }
-        th {
-            background-color: #f2f2f2;
-            text-align: left;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .button-container h3 {
-            color: #512b58;
-            font-size: 18px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .button-container button {
-            padding: 12px 20px;
-            cursor: pointer;
-            background: linear-gradient(135deg, #512b58 0%, #6a479c 100%);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background-color 0.3s ease;
-        }
-        .button-container button:hover {
-            background: linear-gradient(135deg, #6a479c 0%, #512b58 100%);
-        }
+      body {
+        background: linear-gradient(135deg, #f0d9ff 0%, #e2dffd 100%);
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      h1 {
+        margin-top: 0;
+        text-align: center;
+        color: #512b58;
+        font-size: 32px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      label {
+        font-weight: bold;
+        color: #512b58;
+      }
+      input[type="text"],
+      textarea,
+      input[type="date"] {
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 16px;
+      }
+      input[type="submit"] {
+        padding: 12px;
+        cursor: pointer;
+        background: linear-gradient(135deg, #512b58 0%, #6a479c 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: background-color 0.3s ease;
+      }
+      input[type="submit"]:hover {
+        background: linear-gradient(135deg, #6a479c 0%, #512b58 100%);
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        color: #512b58;
+        font-size: 16px;
+      }
+      th {
+        background-color: #f2f2f2;
+        text-align: left;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .button-container h3 {
+        color: #512b58;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .button-container button {
+        padding: 12px 20px;
+        cursor: pointer;
+        background: linear-gradient(135deg, #512b58 0%, #6a479c 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: background-color 0.3s ease;
+      }
+      .button-container button:hover {
+        background: linear-gradient(135deg, #6a479c 0%, #512b58 100%);
+      }
 
-        /* Animation */
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
+      /* Animation */
+      @keyframes slideIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
         }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-        @keyframes slideOut {
-            0% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(-20px); }
+      @keyframes slideOut {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
         }
+        100% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+      }
 
-        .animate-slide-in {
-            animation: slideIn 0.5s ease forwards;
-        }
+      .animate-slide-in {
+        animation: slideIn 0.5s ease forwards;
+      }
 
-        .animate-slide-out {
-            animation: slideOut 0.5s ease forwards;
-        }
+      .animate-slide-out {
+        animation: slideOut 0.5s ease forwards;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>To Do App</h1>
-        <form id="createForm">
-            <label for="judul">Judul:</label>
-            <input type="text" id="judul" name="judul">
-            <label for="deskripsi">Deskripsi:</label>
-            <textarea id="deskripsi" name="deskripsi"></textarea>
-            <label for="due_date">Due Date:</label>
-            <input type="date" id="due_date" name="due_date">
-            <input type="button" value="Add" id="addButton">
-            
-        </form>
-        <div class="button-container">
-            <h3>ToDo</h3>
-            <h3>Date</h3>
-            <button onclick="fetchTodos()">Refresh</button>
+      <h1>To Do App</h1>
+      <form id="createForm">
+        <label for="judul">Judul:</label>
+        <input type="text" id="judul" name="judul" />
+        <label for="deskripsi">Deskripsi:</label>
+        <textarea id="deskripsi" name="deskripsi"></textarea>
+        <label for="due_date">Due Date:</label>
+        <input type="date" id="due_date" name="due_date" />
+        <input type="button" value="Add" id="addButton" />
+      </form>
+      <div class="button-container">
+        <h3>ToDo</h3>
+        <h3>Date</h3>
+        <button onclick="fetchTodos()">Refresh</button>
+        <button type="button" id="logoutButton">Logout</button>
+      </div>
+      <table id="todoTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Judul</th>
+            <th>Deskripsi</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="todoList"></tbody>
+      </table>
+      <button id="openUpdateModalButton" style="display: none">
+        Open Modal
+      </button>
+      <div id="updateModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Update Task</h2>
+          <form id="updateTaskForm">
+            <label for="updateJudul">Judul:</label>
+            <input type="text" id="updateJudul" name="updateJudul" />
+            <label for="updateDeskripsi">Deskripsi:</label>
+            <textarea id="updateDeskripsi" name="updateDeskripsi"></textarea>
+            <label for="updateDueDate">Due Date:</label>
+            <input type="date" id="updateDueDate" name="updateDueDate" />
+            <button type="button" id="updateTaskButton">Update</button>
+          </form>
         </div>
-        <table id="todoTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Judul</th>
-                    <th>Deskripsi</th>
-                    <th>Due Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="todoList">
-                
-            </tbody>
-        </table>
-        <button id="openUpdateModalButton" style="display: none;">Open Modal</button>
-        <div id="updateModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Update Task</h2>
-                <form id="updateTaskForm">
-                    <label for="updateJudul">Judul:</label>
-                    <input type="text" id="updateJudul" name="updateJudul">
-                    <label for="updateDeskripsi">Deskripsi:</label>
-                    <textarea id="updateDeskripsi" name="updateDeskripsi"></textarea>
-                    <label for="updateDueDate">Due Date:</label>
-                    <input type="date" id="updateDueDate" name="updateDueDate">
-                    <button type="button" id="updateTaskButton">Update</button>
-                </form>
-            </div>
-        </div>
+      </div>
     </div>
-
-</body>
+	<script src="script.js" type="module"></script>
+  </body>
 </html>
