@@ -19,18 +19,64 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 		})
 		.then(data => {
 			const token = data.token;
-			// Set cookie with the token for 1 hour
-			setCookie('login', token, 1 / 24); // 1 hour expiration
-			// Redirect to index.html after successful login
-			// Redirect to appropriate page after successful login
-			redirectToPageBasedOnUserRole(token);
-			window.location.href = 'index.html';
+			setCookie('login', token, 1 / 24);
+			Swal.fire({
+				icon: 'success',
+				title: 'Logged in Successfully!',
+				text: 'You will now be redirected.'
+			}).then(() => {
+				redirectToPageBasedOnUserRole(token);
+			});
 		})
 		.catch(error => {
 			console.error('There was an error with the login request:', error);
-			document.getElementById('message').innerHTML = 'Login failed. Please try again.';
+			Swal.fire({
+				icon: 'error',
+				title: 'Login Failed',
+				text: 'Please try again.'
+			});
 		});
 });
+
+document
+	.getElementById("signupForm")
+	.addEventListener("submit", function (event) {
+		event.preventDefault(); // Prevent the default form submission
+		const formData = new FormData(this);
+		const jsonData = {};
+		formData.forEach((value, key) => {
+			jsonData[key] = value;
+		});
+
+		fetch("http://127.0.0.1:3000/register", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(jsonData),
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				return response.json();
+			})
+			.then((data) => {
+				Swal.fire({
+					icon: 'success',
+					title: 'Registration Successful!',
+					text: 'You can now log in with your new account.'
+				});
+			})
+			.catch((error) => {
+				console.error("Error during registration:", error);
+				Swal.fire({
+					icon: 'error',
+					title: 'Registration Failed',
+					text: 'Please try again.'
+				});
+			});
+	});
 
 function setCookie(name, value, daysFraction) {
 	const d = new Date();

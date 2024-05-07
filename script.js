@@ -38,20 +38,21 @@ function FungsiGet() {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${index}</td>
+					<td>${task.nama}</td>
                     <td>${task.judul}</td>
                     <td>${task.deskripsi}</td>
                     <td>${task.due_date}</td>
                     <td>${task.completed ? 'Done' : 'Todo'}</td>
                     <td>
-                        <button class="deleteButton" data-id="${task.id}">Delete</button>
-                        <button class="updateButton" data-id="${task.id}">Update</button>
+                        <button class="btn btn-danger m-1" data-id="${task.id}">Delete</button>
+                        <button class="btn btn-secondary m-1" data-id="${task.id}">Update</button>
                     </td>
                 `;
-                row.querySelector('.deleteButton').addEventListener('click', function() {
+                row.querySelector('.btn-danger').addEventListener('click', function() {
                     const taskId = this.getAttribute('data-id');
                     deleteData(taskId);
                 });
-                row.querySelector('.updateButton').addEventListener('click', function() {
+                row.querySelector('.btn-secondary').addEventListener('click', function() {
                     const taskId = this.getAttribute('data-id');
                     openUpdateModal(taskId);
                 });
