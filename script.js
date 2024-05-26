@@ -134,11 +134,6 @@ function openUpdateModal(taskId) {
     })
     .catch(error => console.error('Error fetching task details:', error));
 }
-document.getElementById('updateTaskButton').addEventListener('click', function() {
-    
-    const taskId = document.getElementById('updateTaskId').value;
-    updateTask(taskId, newData);
-});
 function updateTask(id, newData) {
 	const token = getCookie('login');
     
