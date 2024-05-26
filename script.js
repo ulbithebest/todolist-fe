@@ -63,7 +63,7 @@ function FungsiGet() {
 }
 
 function deleteData(taskId) {
-    fetch(`http://127.0.0.1:3000/task/delete/${taskId}`, {
+    fetch(`http://127.0.0.1:3000/task/delete?id_task=${taskId}`, {
         method: 'DELETE'
     })
     .then(response => response.json())
