@@ -63,8 +63,13 @@ function FungsiGet() {
 }
 
 function deleteData(taskId) {
+	const token = getCookie('login');
+    
     fetch(`http://127.0.0.1:3000/task/delete?id_task=${taskId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'login': token
+        }
     })
     .then(response => response.json())
     .then(result => {
