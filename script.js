@@ -158,33 +158,57 @@ function updateTask(id, newData) {
     .catch(error => console.error('Error updating data:', error));
 }
 
-function insertTask() {
-	const token = getCookie('login');
+async function getUserData() {
+    const token = getCookie('login');
+    try {
+        const response = await fetch('http://127.0.0.1:3000/getme', {
+            method: 'GET',
+            headers: {
+                'login': token,
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        return data.user; // returning the user object
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error;
+    }
+}
 
-    const addJudul = document.getElementById('judul').value;
-    const addDeskripsi = document.getElementById('deskripsi').value;
-    const addDueDate = document.getElementById('due_date').value;
+async function insertTask() {
+    const token = getCookie('login');
 
-    const insertData = {
-        judul: addJudul,
-        deskripsi: addDeskripsi,
-        due_date: addDueDate
-    };
+    try {
+        const user = await getUserData();
+        const id_user = user.id_user;
 
-    fetch(`http://127.0.0.1:3000/task/insert`, {
-        method: 'POST',
-        headers: {
-            'login': token,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(insertData)
-    })
-    .then(response => response.json())
-    .then(result => {
+        const addJudul = document.getElementById('judul').value;
+        const addDeskripsi = document.getElementById('deskripsi').value;
+        const addDueDate = document.getElementById('due_date').value;
+
+        const insertData = {
+            id_user: id_user,
+            judul: addJudul,
+            deskripsi: addDeskripsi,
+            due_date: addDueDate
+        };
+
+        const response = await fetch(`http://127.0.0.1:3000/task/insert`, {
+            method: 'POST',
+            headers: {
+                'login': token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(insertData)
+        });
+
+        const result = await response.json();
         console.log('Data berhasil ditambahkan:', result);
-        FungsiGet(); // Setelah update, menambah daftar tugas
-    })
-    .catch(error => console.error('Error updating data:', error));
+        FungsiGet(); // After updating, refresh the task list
+    } catch (error) {
+        console.error('Error updating data:', error);
+    }
 }
 
 FungsiGet();
