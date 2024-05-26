@@ -139,9 +139,12 @@ document.getElementById('updateTaskButton').addEventListener('click', function()
     updateTask(taskId, newData);
 });
 function updateTask(id, newData) {
-    fetch(`http://127.0.0.1:3000/task/${id}`, {
+	const token = getCookie('login');
+    
+    fetch(`http://127.0.0.1:3000/task/update?id_task=${id}`, {
         method: 'PUT',
         headers: {
+            'login': token,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(newData)
