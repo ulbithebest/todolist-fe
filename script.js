@@ -69,7 +69,7 @@ function deleteData(taskId) {
     .then(response => response.json())
     .then(result => {
         console.log('Data berhasil dihapus:', result);
-        fetchTodos(); 
+        FungsiGet(); 
     })
     .catch(error => console.error('Error deleting data:', error));
 }
@@ -151,7 +151,7 @@ function updateTask(id, newData) {
     .then(response => response.json())
     .then(result => {
         console.log('Data berhasil diupdate:', result);
-        fetchTodos(); // Setelah update, perbarui daftar tugas
+        FungsiGet(); // Setelah update, perbarui daftar tugas
     })
     .catch(error => console.error('Error updating data:', error));
 }
