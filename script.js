@@ -100,11 +100,13 @@ function openUpdateModal(taskId) {
             const taskData = data.data;
 
             // Check if elements exist before accessing their values
+            const updateTaskIdElement = document.getElementById('updateTaskId');
             const updateJudulElement = document.getElementById('updateJudul');
             const updateDeskripsiElement = document.getElementById('updateDeskripsi');
             const updateDueDateElement = document.getElementById('updateDueDate');
 
-            if (updateJudulElement && updateDeskripsiElement && updateDueDateElement) {
+            if (updateTaskIdElement && updateJudulElement && updateDeskripsiElement && updateDueDateElement) {
+                updateTaskIdElement.value = taskData.id_task;
                 updateJudulElement.value = taskData.judul;
                 updateDeskripsiElement.value = taskData.deskripsi;
                 updateDueDateElement.value = taskData.due_date;
