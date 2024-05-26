@@ -152,6 +152,36 @@ function updateTask(id, newData) {
     })
     .catch(error => console.error('Error updating data:', error));
 }
+
+function insertTask() {
+	const token = getCookie('login');
+
+    const addJudul = document.getElementById('judul').value;
+    const addDeskripsi = document.getElementById('deskripsi').value;
+    const addDueDate = document.getElementById('due_date').value;
+
+    const insertData = {
+        judul: addJudul,
+        deskripsi: addDeskripsi,
+        due_date: addDueDate
+    };
+
+    fetch(`http://127.0.0.1:3000/task/insert`, {
+        method: 'POST',
+        headers: {
+            'login': token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(insertData)
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Data berhasil ditambahkan:', result);
+        FungsiGet(); // Setelah update, menambah daftar tugas
+    })
+    .catch(error => console.error('Error updating data:', error));
+}
+
 FungsiGet();
 
 function getCookie() {
@@ -185,4 +215,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // EvenListener jika tombol refresh di click
 document.getElementById('refreshBtn').addEventListener('click', function() {    
     FungsiGet();
+});
+
+// EvenListener jika tombol tambah di click
+document.getElementById('addButton').addEventListener('click', function() {
+    insertTask();
 });
