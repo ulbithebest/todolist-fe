@@ -44,8 +44,8 @@ function FungsiGet() {
                     <td>${task.due_date}</td>
                     <td>${task.completed ? 'Done' : 'Todo'}</td>
                     <td>
-                        <button class="btn btn-danger m-1" data-id="${task.id}">Delete</button>
-                        <button class="btn btn-secondary m-1" data-id="${task.id}">Update</button>
+                        <button class="btn btn-danger m-1" data-id="${task.id_task}">Delete</button>
+                        <button class="btn btn-secondary m-1" data-id="${task.id_task}">Update</button>
                     </td>
                 `;
                 row.querySelector('.btn-danger').addEventListener('click', function() {
@@ -76,19 +76,36 @@ function deleteData(taskId) {
 }
 
 function openUpdateModal(taskId) {
-    
-    fetch(`http://127.0.0.1:3000/task/get/${taskId}`)
-        .then(response => response.json())
-        .then(data => {
-            
-            document.getElementById('updateJudul').value = data.judul;
-            document.getElementById('updateDeskripsi').value = data.deskripsi;
-            document.getElementById('updateDueDate').value = data.due_date;
+    // Ambil token dari cookie
+    const token = getCookie();
 
-            
+    // Pastikan token ada sebelum melakukan permintaan
+    if (!token) {
+        console.error('Token not found. User may not be authenticated.');
+        return;
+    }
+
+    fetch(`http://127.0.0.1:3000/task/get?id_task=${taskId}`, {
+        headers: {
+            'login': token
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            const taskData = data.data;
+
+            document.getElementById('updateJudul').value = taskData.judul;
+            document.getElementById('updateDeskripsi').value = taskData.deskripsi;
+            document.getElementById('updateDueDate').value = taskData.due_date;
+
             const updateButton = document.getElementById('updateButton');
             updateButton.addEventListener('click', function() {
-                
                 const newJudul = document.getElementById('updateJudul').value;
                 const newDeskripsi = document.getElementById('updateDeskripsi').value;
                 const newDueDate = document.getElementById('updateDueDate').value;
@@ -99,20 +116,22 @@ function openUpdateModal(taskId) {
                     due_date: newDueDate
                 };
 
-
                 updateTask(taskId, newData);
-
             });
-        })
-        .catch(error => console.error('Error fetching task details:', error));
+        } else {
+            console.error('API response indicates failure:', data.status);
+        }
+    })
+    .catch(error => console.error('Error fetching task details:', error));
 }
+
 document.getElementById('updateTaskButton').addEventListener('click', function() {
     
     const taskId = document.getElementById('updateTaskId').value;
     updateTask(taskId, newData);
 });
 function updateTask(id, newData) {
-    fetch(`http://127.0.0.1:3000/task//${id}`, {
+    fetch(`http://127.0.0.1:3000/task/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
