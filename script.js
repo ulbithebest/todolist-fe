@@ -181,3 +181,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Menambahkan event listener untuk logout saat tombol ditekan
 	logoutButton.addEventListener("click", logout);
 });
+
+// EvenListener jika tombol refresh di click
+document.getElementById('refreshBtn').addEventListener('click', function() {    
+    FungsiGet();
+});
