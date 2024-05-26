@@ -38,8 +38,7 @@ function FungsiGet() {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${index}</td>
-					<td>${task.nama}</td>
-                    <td>${task.judul}</td>
+					<td>${task.judul}</td>
                     <td>${task.deskripsi}</td>
                     <td>${task.due_date}</td>
                     <td>${task.completed ? 'Done' : 'Todo'}</td>
