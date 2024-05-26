@@ -100,31 +100,39 @@ function openUpdateModal(taskId) {
         if (data.success) {
             const taskData = data.data;
 
-            document.getElementById('updateJudul').value = taskData.judul;
-            document.getElementById('updateDeskripsi').value = taskData.deskripsi;
-            document.getElementById('updateDueDate').value = taskData.due_date;
+            // Check if elements exist before accessing their values
+            const updateJudulElement = document.getElementById('updateJudul');
+            const updateDeskripsiElement = document.getElementById('updateDeskripsi');
+            const updateDueDateElement = document.getElementById('updateDueDate');
 
-            const updateButton = document.getElementById('updateButton');
-            updateButton.addEventListener('click', function() {
-                const newJudul = document.getElementById('updateJudul').value;
-                const newDeskripsi = document.getElementById('updateDeskripsi').value;
-                const newDueDate = document.getElementById('updateDueDate').value;
+            if (updateJudulElement && updateDeskripsiElement && updateDueDateElement) {
+                updateJudulElement.value = taskData.judul;
+                updateDeskripsiElement.value = taskData.deskripsi;
+                updateDueDateElement.value = taskData.due_date;
 
-                const newData = {
-                    judul: newJudul,
-                    deskripsi: newDeskripsi,
-                    due_date: newDueDate
-                };
+                const updateButton = document.getElementById('updateTaskButton');
+                updateButton.addEventListener('click', function() {
+                    const newJudul = document.getElementById('updateJudul').value;
+                    const newDeskripsi = document.getElementById('updateDeskripsi').value;
+                    const newDueDate = document.getElementById('updateDueDate').value;
 
-                updateTask(taskId, newData);
-            });
+                    const newData = {
+                        judul: newJudul,
+                        deskripsi: newDeskripsi,
+                        due_date: newDueDate
+                    };
+
+                    updateTask(taskId, newData);
+                });
+            } else {
+                console.error("One or more update form elements not found.");
+            }
         } else {
             console.error('API response indicates failure:', data.status);
         }
     })
     .catch(error => console.error('Error fetching task details:', error));
 }
-
 document.getElementById('updateTaskButton').addEventListener('click', function() {
     
     const taskId = document.getElementById('updateTaskId').value;
